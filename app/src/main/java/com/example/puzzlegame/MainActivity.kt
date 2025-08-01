@@ -57,21 +57,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-//@Composable
-//fun PuzzleGameTheme(
-//    darkTheme: Boolean = isSystemInDarkTheme(),
-//    content: @Composable () -> Unit
-//) {
-//    val DarkColors = Color.Black;
-//    val LightColors
-//    val colors = if (darkTheme) DarkColors else LightColors
-//
-//    MaterialTheme(
-//        colorScheme = colors,
-//        content = content
-//    )
-//}
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun GameApp() {
     var currentScreen by remember { mutableStateOf<GameScreen>(GameScreen.Home) }
@@ -122,16 +108,7 @@ fun HomeScreen(
     onSettingsClicked: () -> Unit,
     onAboutClicked: () -> Unit
 ) {
-    val infiniteTransition = rememberInfiniteTransition(label = "background")
-    val animatedFloat by infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = 360f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(10000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
-        ),
-        label = "rotation"
-    )
+
 
     Box(
         modifier = Modifier
@@ -147,8 +124,6 @@ fun HomeScreen(
                 )
             )
     ) {
-        // Animated background elements
-        AnimatedBackground(animatedFloat)
 
         Column(
             modifier = Modifier
@@ -160,7 +135,7 @@ fun HomeScreen(
             // Game Title
             Text(
                 text = "MATRYOSHKA",
-                fontSize = 64.sp,
+                fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
                 letterSpacing = 8.sp
@@ -220,7 +195,7 @@ fun HomeScreen(
                         fontSize = 14.sp
                     )
                     Text(
-                        text = "1,247",
+                        text = "42",
                         color = Color.White,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold
@@ -231,26 +206,8 @@ fun HomeScreen(
     }
 }
 
-@Composable
-fun AnimatedBackground(rotation: Float) {
-    Canvas(modifier = Modifier.fillMaxSize()) {
-        val centerX = size.width / 2f
-        val centerY = size.height / 2f
 
-        for (i in 0..5) {
-            val angle = rotation + i * 60f
-            val radius = 200f + i * 50f
-            val x = centerX + cos(Math.toRadians(angle.toDouble())).toFloat() * radius
-            val y = centerY + sin(Math.toRadians(angle.toDouble())).toFloat() * radius
 
-            drawCircle(
-                color = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.05f),
-                radius = 30f + i * 10f,
-                center = androidx.compose.ui.geometry.Offset(x, y)
-            )
-        }
-    }
-}
 
 @Composable
 fun MenuButton(
